@@ -1,0 +1,47 @@
+
+# .sav file
+=========
+[0] - [1] seems to always be 0
+[2] - [4] seems to be the slot number and the slots are indexed from 1
+[12] = saveCount (increments by one every time the game is saved
+[0xe1c] - [0xe27] seems to be the play time in the format { 4 bytes, hour, 4 bytes Min, 4 bytes sec }
+[0x115c] some sort of counter that seems to increment every battle
+[0xca46] seems to be a counter that could either count battles or items in the inventory ? none of it seems to match
+
+
+
+Character data starts at offset 0xF38
+
+
+INVENTORY
+=========
+Dont know where it starts or ends as the space it reserves is large and with a lot of nulls so overall size is hard to determine
+Seems that the inventory contains a lot of empty space that gets filled up with entries
+every entry is 4 bytes long and a new entry is only created if the item gained is not already in the list
+1 of the 4 bytes are used to count the amount of that item - don't know which one yet - it seems to be the last of the bytes
+
+Character: (all hex values are for nep, decimal values are absolutes calculated from the first byte of the characters name)
+=========
+Name = [0]
+level = [39]
+[0xf78] - [0cf79] = SP
+[0xf58] - [0xf58] = EXP
+[0xf70] - [0xf73] = HP
+
+
+Plans:
+=========
+When a plan is unlocked a value somwhere is set to 01 and when bought, when deactivated set to 3 and when activated its set to 7 
+the mem area for Change Items Plans is around 0xBF345
+the mem area for Add Enemies Plans is around 0xbf2c0
+
+# .savslot
+=========
+[0] - [7] = Static header = {53 41 56 45 30 30 30 31}
+[8]-[23] = Some sort of data (maybe another hash?) that changes - Thought it was the hash of the saveslot file, but that was not correct but it is 16 bytes so it fits well with the size of a md5hash
+[24] - [40] = md5 hash of the associated .sav file (Must be changed if savefile is editied or the game will give not load the save)
+[0x334] = seems to be a timestamp of the savefile. the first 16 bits/2 bytes read the year in full (i.e. 2021) the next 2 bytes is the month in number format (i.e 02 = feburary) and the next 2 bytes are equal to the date (i.e 0x18 = 24) next 2 bytes is the hour, next 2 bytes is the minute, next is the second. the last 4 bytes are unknown and I can't make sense of them
+
+IMPORTANT NOTES
+=========
+The game can tell if a save file is being modified while ingame - to edit the savefile please exit the game first

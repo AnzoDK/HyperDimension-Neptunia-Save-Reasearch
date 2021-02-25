@@ -98,5 +98,80 @@ then
         echo "Usage: validateSave.sh (pfx path) (repair|validate) (saveslot) OR just run validateSave.sh"
     exit 1
     fi
+else
+        PREFIX_PATH="$1"
+        PREFIX_PATH=${PREFIX_PATH}"/drive_c/users/steamuser/My Documents/My Games/Idea Factory International, Inc/Hyperdimension Neptunia Re;Birth1"
+        ACTION="$2"
+        SLOT="$3"
+        if [ "$ACTION" == "repair" ] || [ "$ACTION" == "validate" ]
+        then
+            OLD_PATH=$(pwd)
+            if [ "$ACTION" == "repair" ]
+            then
+                OLD_PATH=$(pwd)
+                FILE_PATH=${PREFIX_PATH}"/data"
+                FILE_PATH=${FILE_PATH}"$SLOT"
+                FILE_SLOT_PATH=${FILE_PATH}
+                FILE_PATH=${FILE_PATH}".sav"
+                FILE_SLOT_PATH=${FILE_SLOT_PATH}".savslot"
+                stat "$FILE_PATH" >> /dev/null
+                if [ $? -ne 0 ]
+                then
+                    echo "Could not access the slot"
+                    exit 1
+                else
+                    stat "$FILE_SLOT_PATH" >> /dev/null
+                    if [ $? -ne 0 ]
+                    then
+                        echo "Could not access the slot"
+                        exit 1
+                    else
+                        rm ./hash.txt >> /dev/null
+                        echo -ne $(echo $(md5sum "$FILE_PATH" | awk '{ print $1 }' | sed -e 's/../\\x&/g')) >> ./hash.txt
+                        dd if=./hash.txt seek=24 count=16 of="$FILE_SLOT_PATH" oflag=seek_bytes iflag=skip_bytes,count_bytes bs=1 status=none conv=notrunc
+                        echo "Saveslot patched!"
+                        exit 0
+                    fi
+                fi
+            else
+                OLD_PATH=$(pwd)
+                FILE_PATH=${PREFIX_PATH}"/data"
+                FILE_PATH=${FILE_PATH}"$SLOT"
+                FILE_SLOT_PATH=${FILE_PATH}
+                FILE_PATH=${FILE_PATH}".sav"
+                FILE_SLOT_PATH=${FILE_SLOT_PATH}".savslot"
+                stat "$FILE_PATH" >> /dev/null
+                if [ $? -ne 0 ]
+                then
+                    echo "Could not access the slot"
+                    exit 1
+                else
+                    stat "$FILE_SLOT_PATH" >> /dev/null
+                    if [ $? -ne 0 ]
+                    then
+                        echo "Could not access the slot"
+                        exit 1
+                    else
+                        dd if="$FILE_SLOT_PATH" skip=24 count=16 of=./hash.txt iflag=skip_bytes,count_bytes bs=1 status=none
+                        HASH=$(cat ./hash.txt | (od -vt x1|awk '{$1="";print}'))
+                        HASH="${HASH//[[:blank:]]/}"
+                        #echo $HASH
+                        HASH_CHECK=$(md5sum "$FILE_PATH" | awk '{ print $1 }')
+                        #echo $HASH_CHECK
+                        if [ "$HASH_CHECK" == "$HASH" ]
+                        then
+                            echo "The save file is correctly hashed!"
+                            exit 0
+                        else
+                            echo "Savefile hash validation failed!"
+                            exit 1
+                        fi
+                    fi
+                fi
+            fi
+        else
+            echo "Invalid input"
+            exit 1
+        fi
 fi
     

@@ -3,4 +3,5 @@ hash.txt
 *.o
 *.nepO
 *.so
+*.so.*
 *.kdev4

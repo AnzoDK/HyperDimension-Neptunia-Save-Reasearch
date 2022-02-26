@@ -11,7 +11,7 @@ using namespace ReBirth1;
 #include <shobjidl_core.h>
 ReBirth1Manager::ReBirth1Manager(std::wstring overridePath)
 {
-    if(overridePath != "")
+    if(overridePath != L"")
     {
         m_installPath = overridePath;
     }
@@ -63,8 +63,9 @@ void ReBirth1::ReBirth1Manager::LoadSave(int slot)
         slotPath+=L'0';
     }
     slotPath+=slotStr;
-    m_saveFile = new SaveFile(m_installPath+WCHAR_OS_SEPARATOR+L".sav");
-    m_saveSlot = new SaveSlot(m_installPath+WCHAR_OS_SEPARATOR+L".savslot");
+    std::wcout << "Attempting to access " << slotPath << std::endl;
+    m_saveFile = new SaveFile(slotPath+L".sav");
+    m_saveSlot = new SaveSlot(slotPath+L".savslot");
     
     
 }

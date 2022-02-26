@@ -1,5 +1,6 @@
 #include "../../../include/libReBirth1.h"
 #include "../../../include/nepnepCommon.h"
+#include <RPCommon/RPCommon.h>
 #include <fstream>
 #include <filesystem> //C++ >= 17
 namespace fs = std::filesystem;
@@ -25,13 +26,13 @@ ReBirth1Manager::ReBirth1Manager(std::wstring overridePath)
             exit(1);
         }  
         m_installPath = std::wstring(path);
-        m_installPath += "\\My Games\\Idea Factory International, Inc\\Hyperdimension Neptunia Re;Birth1"
+        m_installPath += L"\\My Games\\Idea Factory International, Inc\\Hyperdimension Neptunia Re;Birth1"
         CoTaskMemFree(path);
     }
     m_ValidatePath();
 }
 #elif defined(__linux__)
-ReBirth1Manager::ReBirth1Manager(std::wstring instPath)
+ReBirth1Manager::ReBirth1Manager(unicode_string instPath)
 {
     m_installPath = instPath;
     
@@ -40,9 +41,14 @@ ReBirth1Manager::ReBirth1Manager(std::wstring instPath)
 
 void ReBirth1::ReBirth1Manager::m_ValidatePath()
 {
-    if(!fs::exists(m_installPath) || !fs::exists(m_installPath+WCHAR_OS_SEPARATOR+L"Neptune.ini"))
+#ifdef _WIN32
+    unicode_string neptuneFile = L"Neptune.ini";
+#else
+    unicode_string neptuneFile = "Neptune.ini";
+#endif
+    if(!fs::exists(m_installPath) || !fs::exists(m_installPath+UNICODE_CHAR_OS_SEPARATOR+neptuneFile))
     {
-        std::wcout << "Could not find the Re;Birth1 save folder... (Searched for folder: " << m_installPath << ") [The game may have to be booted up at least once...]" << std::endl;
+        UNICODE_OUT << "Could not find the Re;Birth1 save folder... (Searched for folder: " << m_installPath << ") [The game may have to be booted up at least once...]" << std::endl;
         exit(1);
     }
 }
@@ -50,29 +56,42 @@ void ReBirth1::ReBirth1Manager::m_ValidatePath()
 
 void ReBirth1::ReBirth1Manager::LoadSave(int slot)
 {
-    std::wstring slotStr = std::to_wstring(slot);
+    unicode_string slotStr = to_unicode_string(slot);
     if(slotStr.size() > 4)
     {
         std::cout << "Slot: " << slot << " is too large to be a valid slot" << std::endl;
         exit(1);
     }
     int leadingZeros = 4-slotStr.size();
-    std::wstring slotPath = m_installPath+WCHAR_OS_SEPARATOR+L"data";
+#ifdef _WIN32
+    unicode_string slotPath = m_installPath+UNICODE_CHAR_OS_SEPARATOR+L"data";
+#else
+    unicode_string slotPath = m_installPath+UNICODE_CHAR_OS_SEPARATOR+"data";
+#endif
     for(int i = 0; i < leadingZeros; i++)
     {
+#ifdef _WIN32
         slotPath+=L'0';
+#else
+        slotPath+='0';
+#endif
     }
     slotPath+=slotStr;
-    std::wcout << "Attempting to access " << slotPath << std::endl;
+    UNICODE_OUT << "Attempting to access " << slotPath << std::endl;
+#ifdef _WIN32
     m_saveFile = new SaveFile(slotPath+L".sav");
     m_saveSlot = new SaveSlot(slotPath+L".savslot");
+#else
+    m_saveFile = new SaveFile(slotPath+".sav");
+    m_saveSlot = new SaveSlot(slotPath+".savslot");
+#endif
     
     
 }
 
 /* SaveFile */
 
-SaveFile::SaveFile(std::wstring path)
+SaveFile::SaveFile(unicode_string path)
 {
     m_savePath = path;
     m_Validate();
@@ -82,13 +101,19 @@ void SaveFile::m_Validate()
 {
     if(!fs::exists(m_savePath))
     {
-        std::wcout << "Save File: " << m_savePath << " Failed to validate... (File Not Found)" << std::endl;
+        UNICODE_OUT << "Save File: " << m_savePath << " Failed to validate... (File Not Found)" << std::endl;
         exit(1);
     }
+    m_Load();
+    
+}
+void SaveFile::m_Load()
+{
+    m_data = ReadUnsignedFile(m_savePath,m_dataSize);
 }
 
 /* SaveSlot */
-SaveSlot::SaveSlot(std::wstring path)
+SaveSlot::SaveSlot(unicode_string path)
 {
     m_slotPath = path;
     m_Validate();
@@ -98,8 +123,14 @@ void SaveSlot::m_Validate()
 {
     if(!fs::exists(m_slotPath))
     {
-        std::wcout << "SaveSlot File: " << m_slotPath << " Failed to validate... (File Not Found)" << std::endl;
+        UNICODE_OUT << "SaveSlot File: " << m_slotPath << " Failed to validate... (File Not Found)" << std::endl;
         exit(1);
     }
+    m_Load();
+}
+
+void SaveSlot::m_Load()
+{
+    m_data = ReadUnsignedFile(m_slotPath,m_dataSize);
 }
 

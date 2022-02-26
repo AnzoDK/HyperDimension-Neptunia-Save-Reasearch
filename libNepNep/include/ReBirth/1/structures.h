@@ -10,17 +10,17 @@ namespace ReBirth1
         public:
             #ifdef _WIN32
                 //Windows Just saves in documents, but linux saves in WINE prefixes...
-                ReBirth1Manager(std::wstring overridePath="");
+                ReBirth1Manager(unicode_string overridePath="");
             #elif defined(__linux__)
                 /*Usually "<PREFIX>/drive_c/users/steamuser/My Documents/My Games/Idea Factory International, Inc/Hyperdimension Neptunia Re;Birth1"*/
-                ReBirth1Manager(std::wstring savePath);
+                ReBirth1Manager(unicode_string savePath);
             #endif     
             ~ReBirth1Manager(){if(m_saveFile != nullptr){delete m_saveFile;}if(m_saveSlot != nullptr){delete m_saveSlot;}};
             void LoadSave(int slot);
         private:
             /*To ensure Windows path compatibility we use a wstring for the path*/
             void m_ValidatePath();
-            std::wstring m_installPath;
+            unicode_string m_installPath;
             SaveFile* m_saveFile = nullptr;
             SaveSlot* m_saveSlot = nullptr;
     };

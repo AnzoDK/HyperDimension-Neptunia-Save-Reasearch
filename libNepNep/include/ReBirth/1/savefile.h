@@ -5,6 +5,10 @@
 #endif
 namespace ReBirth1
 {
+struct _FileStructure
+{
+    
+};
 class SaveFile
 {
     public:

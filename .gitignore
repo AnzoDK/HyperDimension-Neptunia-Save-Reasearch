@@ -5,3 +5,6 @@ hash.txt
 *.so
 *.so.*
 *.kdev4
+*.sav
+*.savslot
+*.hex

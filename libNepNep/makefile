@@ -9,6 +9,7 @@ default: clean ReBirth1
 	make tests
 	#Running Tests
 	make run_tests
+	make clean
 clean:
 	-rm *.o
 	-rm *.out

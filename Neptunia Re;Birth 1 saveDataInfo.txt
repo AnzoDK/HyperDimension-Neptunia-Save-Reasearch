@@ -24,7 +24,7 @@ Character: (all hex values are for nep, decimal values are absolutes calculated 
 =========
 Name = [0]
 level = [39]
-[0xf78] - [0cf79] = SP
+[0xf78] - [0xf79] = SP
 [0xf58] - [0xf58] = EXP
 [0xf70] - [0xf73] = HP
 
@@ -34,6 +34,16 @@ Plans:
 When a plan is unlocked a value somwhere is set to 01 and when bought, when deactivated set to 3 and when activated its set to 7 
 the mem area for Change Items Plans is around 0xBF345
 the mem area for Add Enemies Plans is around 0xbf2c0
+
+Shares:
+=========
+Shares are stored next to the Chapter name or offset 0x0F1C
+and is structured like this:
+[0x0F1C] - [0x0F1F] = Planeptune shares
+[0x0F20] - [0x0F23] = Leanbox shares
+[0x0F24] - [0x0F27] = Lastation shares
+[0x0F28] - [0x0F2B] = Others shares
+It is important to get the shares to add up to 100%, since I haven't checked for an anti-cheat check yet.
 
 # .savslot
 =========

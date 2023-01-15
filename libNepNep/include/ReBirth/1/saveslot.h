@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include <iostream>
 #ifdef _WIN32
 #include <string>

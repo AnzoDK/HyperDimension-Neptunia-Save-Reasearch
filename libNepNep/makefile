@@ -36,4 +36,4 @@ run_tests:
 tests: ReBirth1Test
 	
 ReBirth1Test:
-	$(CXX) $(DEBUG) $(CXX_FLAGS) $(CXX_TEST_FLAGS) $(LDD) ./tests/ReBirth1Test.cpp -o libNepNep_test_rebirth1.out -l:./libNepNep.so.$(LIB_VERSION)
+	$(CXX) $(DEBUG) $(CXX_FLAGS) $(CXX_TEST_FLAGS) $(LDD) ./tests/ReBirth1Test.cpp -o libNepNep_test_rebirth1.out -l:./libnepnep.so.$(LIB_VERSION)

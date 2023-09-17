@@ -1,6 +1,6 @@
 #include "../../../include/libReBirth1.h"
 #include "../../../include/nepnepCommon.h"
-#include <RPCommon/RPCommon.h>
+#include "../../../include/commonFunc.h"
 #include <fstream>
 #include <filesystem> //C++ >= 17
 namespace fs = std::filesystem;
@@ -109,7 +109,7 @@ void SaveFile::m_Validate()
 }
 void SaveFile::m_Load()
 {
-    m_data = ReadUnsignedFile(m_savePath,m_dataSize);
+    m_data = CommonFunc::ReadUnsignedFile(m_savePath,m_dataSize);
 }
 
 /* SaveSlot */
@@ -131,6 +131,6 @@ void SaveSlot::m_Validate()
 
 void SaveSlot::m_Load()
 {
-    m_data = ReadUnsignedFile(m_slotPath,m_dataSize);
+    m_data = CommonFunc::ReadUnsignedFile(m_slotPath,m_dataSize);
 }
 

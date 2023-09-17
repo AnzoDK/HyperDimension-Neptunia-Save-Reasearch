@@ -11,7 +11,7 @@ REBIRTH_1_LIB_OBJECTS:=rebirth1.nepO
 REBIRTH_1_TEST_OBJECT:=
 
 #Combined
-ALL_REBIRTH_OBJECTS:=$(REBIRTH_1_LIB_OBJECTS)
+ALL_REBIRTH_OBJECTS:=common.nepO $(REBIRTH_1_LIB_OBJECTS)
 default: $(ALL_REBIRTH_OBJECTS)
 	$(CXX) $(ALL_REBIRTH_OBJECTS) $(DEBUG) $(CXX_FLAGS) --shared -o libnepnep.so.$(LIB_VERSION)
 	make tests
@@ -25,6 +25,9 @@ clean:
 
 rebirth1.nepO:
 	$(CXX) $(DEBUG) $(CXX_FLAGS) -c -fPIC ./src/ReBirth/1/libReBirth1.cpp -o rebirth1.nepO
+
+common.nepO:
+	$(CXX) $(DEBUG) $(CXX_FLAGS) -c -fPIC ./src/Common/commonFunc.cpp -o common.nepO
 
 run_tests:
 	./libNepNep_test_rebirth1.out

@@ -89,6 +89,26 @@ void ReBirth1::ReBirth1Manager::LoadSave(int slot)
     
 }
 
+std::vector<std::string> ReBirth1::ReBirth1Manager::PopulatedSlots()
+{
+    if(m_installPath == "")
+    {
+        std::cout << "SaveDataDir is empty..." << std::endl;
+        return std::vector<std::string>();
+    }
+    std::vector<std::string> slotVec = std::vector<std::string>();
+    
+    for (const fs::directory_entry& entry : fs::directory_iterator(m_installPath))
+    {
+        if(entry.path().string().find(".sav") != std::string::npos)
+        {
+            slotVec.push_back(entry.path());
+        }
+    }
+    return slotVec;
+}
+
+
 /* SaveFile */
 
 SaveFile::SaveFile(unicode_string path)

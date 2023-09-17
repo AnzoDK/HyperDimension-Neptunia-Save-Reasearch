@@ -3,6 +3,7 @@
 #include "savefile.h"
 #include "saveslot.h"
 #include <iostream>
+#include <vector>
 namespace ReBirth1
 {
     class ReBirth1Manager
@@ -17,10 +18,11 @@ namespace ReBirth1
             #endif     
             ~ReBirth1Manager(){if(m_saveFile != nullptr){delete m_saveFile;}if(m_saveSlot != nullptr){delete m_saveSlot;}};
             void LoadSave(int slot);
+            std::vector<std::string> PopulatedSlots();
         private:
             /*To ensure Windows path compatibility we use a wstring for the path*/
             void m_ValidatePath();
-            unicode_string m_installPath;
+            unicode_string m_installPath = "";
             SaveFile* m_saveFile = nullptr;
             SaveSlot* m_saveSlot = nullptr;
     };

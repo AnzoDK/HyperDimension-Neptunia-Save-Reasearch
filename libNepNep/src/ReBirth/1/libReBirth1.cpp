@@ -32,14 +32,11 @@ ReBirth1Manager::ReBirth1Manager(std::wstring overridePath)
     m_ValidatePath();
 }
 #elif defined(__linux__)
-ReBirth1Manager::ReBirth1Manager(unicode_string instPath)
-{
-    m_installPath = instPath;
-    
-}
+ReBirth1Manager::ReBirth1Manager(unicode_string instPath) : ReBirthBase(instPath)
+{ }
 #endif
 
-void ReBirth1::ReBirth1Manager::m_ValidatePath()
+/*void ReBirth1::ReBirth1Manager::m_ValidatePath()
 {
 #ifdef _WIN32
     unicode_string neptuneFile = L"Neptune.ini";
@@ -51,7 +48,7 @@ void ReBirth1::ReBirth1Manager::m_ValidatePath()
         UNICODE_OUT << "Could not find the Re;Birth1 save folder... (Searched for folder: " << m_installPath << ") [The game may have to be booted up at least once...]" << std::endl;
         exit(1);
     }
-}
+}*/
 
 
 void ReBirth1::ReBirth1Manager::LoadSave(int slot)
@@ -87,25 +84,6 @@ void ReBirth1::ReBirth1Manager::LoadSave(int slot)
 #endif
     
     
-}
-
-std::vector<std::string> ReBirth1::ReBirth1Manager::PopulatedSlots()
-{
-    if(m_installPath == "")
-    {
-        std::cout << "SaveDataDir is empty..." << std::endl;
-        return std::vector<std::string>();
-    }
-    std::vector<std::string> slotVec = std::vector<std::string>();
-    
-    for (const fs::directory_entry& entry : fs::directory_iterator(m_installPath))
-    {
-        if(entry.path().string().find(".sav") != std::string::npos)
-        {
-            slotVec.push_back(entry.path());
-        }
-    }
-    return slotVec;
 }
 
 

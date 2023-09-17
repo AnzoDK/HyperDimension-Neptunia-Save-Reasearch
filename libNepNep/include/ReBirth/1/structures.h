@@ -1,12 +1,13 @@
 #pragma once
 #include "../../nepnepCommon.h"
+#include "../ReBirthBase.h"
 #include "savefile.h"
 #include "saveslot.h"
 #include <iostream>
 #include <vector>
 namespace ReBirth1
 {
-    class ReBirth1Manager
+    class ReBirth1Manager : public ReBirthBase
     {
         public:
             #ifdef _WIN32
@@ -16,13 +17,9 @@ namespace ReBirth1
                 /*Usually "<PREFIX>/drive_c/users/steamuser/My Documents/My Games/Idea Factory International, Inc/Hyperdimension Neptunia Re;Birth1"*/
                 ReBirth1Manager(unicode_string savePath);
             #endif     
-            ~ReBirth1Manager(){if(m_saveFile != nullptr){delete m_saveFile;}if(m_saveSlot != nullptr){delete m_saveSlot;}};
-            void LoadSave(int slot);
-            std::vector<std::string> PopulatedSlots();
-        private:
-            /*To ensure Windows path compatibility we use a wstring for the path*/
-            void m_ValidatePath();
-            unicode_string m_installPath = "";
+            virtual ~ReBirth1Manager(){if(m_saveFile != nullptr){delete m_saveFile;}if(m_saveSlot != nullptr){delete m_saveSlot;}};
+            virtual void LoadSave(int slot) override;
+        protected:
             SaveFile* m_saveFile = nullptr;
             SaveSlot* m_saveSlot = nullptr;
     };

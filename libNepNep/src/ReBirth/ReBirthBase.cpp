@@ -24,7 +24,7 @@ std::vector<std::string> ReBirthBase::PopulatedSlots()
     {
         if(entry.path().string().find(".sav") != std::string::npos)
         {
-            slotVec.push_back(entry.path());
+            slotVec.push_back(entry.path().string().substr(entry.path().string().find_last_of("/")+1));
         }
     }
     return slotVec;

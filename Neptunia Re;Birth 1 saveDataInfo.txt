@@ -12,6 +12,7 @@
 
 Character data starts at offset 0xF38
 
+File seems to be a static file size of 884bytes
 
 INVENTORY
 =========

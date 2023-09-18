@@ -48,5 +48,6 @@ class SaveFile : public SaveFileBase
     protected:
         virtual void m_Validate() override;
         virtual void m_Load() override;
+        virtual void m_RegisterOffsetMap() override;
 };
 }

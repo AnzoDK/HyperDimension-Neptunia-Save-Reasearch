@@ -135,8 +135,9 @@ void SaveFile::m_Validate()
         //exit(1);
         return;
     }
-    m_DeleteAndLoad();
+    m_Delete();
     m_Load();
+    m_RegisterOffsetMap();
     
 }
 void SaveFile::m_Load()
@@ -148,6 +149,12 @@ void SaveFile::m_Load()
 void SaveFile::LoadAndValidate()
 {
     m_Validate();
+}
+
+void SaveFile::m_RegisterOffsetMap()
+{
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("playTimeHours",DataRefStructure(0xe1c,m_data,UINT32)));
+    
 }
 
 /* SaveSlot */

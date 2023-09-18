@@ -95,6 +95,11 @@ void SaveSlotBase::m_RegisterOffsetMap()
     
 }
 
+bool SaveSlotBase::IsLoaded()
+{
+    return m_isLoaded;
+}
+
 /*SaveFileBase*/
 
 SaveFileBase::SaveFileBase(unicode_string path)
@@ -143,12 +148,22 @@ void SaveFileBase::m_RegisterOffsetMap()
     
 }
 
+bool SaveFileBase::IsLoaded()
+{
+    return m_isLoaded;
+}
+
+
 //DataRefStructure
 
-DataRefStructure::DataRefStructure(size_t mDataOffset, byte* m_dataPtr)
+DataRefStructure::DataRefStructure(size_t mDataOffset, byte* m_dataPtr, __ExpectedDataType dataType)
 {
     m_dataOffset = m_dataOffset;
     _dataPtr = (byte*)m_dataPtr[mDataOffset];
+    expectedDataType = dataType;
+}
+DataRefStructure::~DataRefStructure()
+{
 }
 
 

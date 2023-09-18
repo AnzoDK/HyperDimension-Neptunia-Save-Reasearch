@@ -17,8 +17,11 @@ namespace ReBirth1
                 /*Usually "<PREFIX>/drive_c/users/steamuser/My Documents/My Games/Idea Factory International, Inc/Hyperdimension Neptunia Re;Birth1"*/
                 ReBirth1Manager(unicode_string savePath);
             #endif     
-            virtual ~ReBirth1Manager(){if(m_saveFile != nullptr){delete m_saveFile;}if(m_saveSlot != nullptr){delete m_saveSlot;}};
+            virtual ~ReBirth1Manager(){UnloadSaveFile(); UnloadSaveSlot();};
+            void UnloadSaveSlot(){if(m_saveSlot != nullptr){delete m_saveSlot; m_saveSlot = 0x0;}};
+            void UnloadSaveFile(){if(m_saveFile != nullptr){delete m_saveFile; m_saveFile = 0x0;}};
             virtual void LoadSave(int slot) override;
+            virtual void LoadSave(const std::string& saveFileName) override;
         protected:
             SaveFile* m_saveFile = nullptr;
             SaveSlot* m_saveSlot = nullptr;

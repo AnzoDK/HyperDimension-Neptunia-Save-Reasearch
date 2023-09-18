@@ -15,6 +15,7 @@ class ReBirthBase
             #endif     
             virtual ~ReBirthBase(){};
             virtual void LoadSave(int slot);
+            virtual void LoadSave(const std::string& saveFileName);
             virtual std::vector<std::string> PopulatedSlots();
         protected:
             /*To ensure Windows path compatibility we use a wstring for the path*/

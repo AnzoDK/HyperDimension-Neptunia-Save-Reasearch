@@ -86,6 +86,22 @@ void ReBirth1::ReBirth1Manager::LoadSave(int slot)
     
 }
 
+void ReBirth1::ReBirth1Manager::LoadSave(const std::string& saveFileName)
+{
+    if(!fs::exists(saveFileName) || !fs::exists(std::string(saveFileName + "slot")))
+    {
+        std::cout << "SaveFile missing - Can't access: \"" << saveFileName << "\" or its associated .savslot" << std::endl;
+        return;
+    }
+    unicode_string savPath = m_installPath + UNICODE_CHAR_OS_SEPARATOR + saveFileName;
+    unicode_string savSlotPath = savPath+"slot";
+    UnloadSaveFile();
+    m_saveFile = new SaveFile(savPath);
+    UnloadSaveSlot();
+    m_saveSlot = new SaveSlot(savSlotPath);
+    
+}
+
 
 /* SaveFile */
 

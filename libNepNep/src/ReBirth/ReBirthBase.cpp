@@ -11,6 +11,12 @@ void ReBirthBase::LoadSave(int slot)
     
 }
 
+void ReBirthBase::LoadSave(const std::string& saveFileName)
+{
+    
+}
+
+
 std::vector<std::string> ReBirthBase::PopulatedSlots()
 {
     if(m_installPath == "")

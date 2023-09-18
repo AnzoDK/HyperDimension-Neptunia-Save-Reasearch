@@ -8,6 +8,7 @@ public:
     virtual ~SaveSlotBase(){m_Delete();};
     virtual void LoadAndValidate();
     virtual DataRefStructure GetDataByKey(const std::string& key);
+    virtual std::pair<std::string, DataRefStructure> GetDataPairByKey(const std::string& key);
     virtual bool IsLoaded();
 protected:
     byte* m_sanityHeader = 0x0;

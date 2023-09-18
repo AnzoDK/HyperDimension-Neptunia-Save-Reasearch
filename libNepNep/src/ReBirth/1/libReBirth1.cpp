@@ -88,6 +88,11 @@ void ReBirth1::ReBirth1Manager::LoadSave(int slot)
 
 void ReBirth1::ReBirth1Manager::LoadSave(const std::string& saveFileName)
 {
+    if(saveFileName.substr(saveFileName.length()-4) != "sav")
+    {
+        std::cout << "SaveFile\"" << saveFileName << "\" is not a valid savefile" << std::endl;
+        return;
+    }
     if(!fs::exists(saveFileName) || !fs::exists(std::string(saveFileName + "slot")))
     {
         std::cout << "SaveFile missing - Can't access: \"" << saveFileName << "\" or its associated .savslot" << std::endl;

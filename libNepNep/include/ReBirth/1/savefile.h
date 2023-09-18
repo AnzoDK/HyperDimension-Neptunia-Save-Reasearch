@@ -32,9 +32,10 @@ struct _FileStructure
      * @brief The playtime hours (not total playtime *in* hours) Starting at 0x0e1c and holds 4 bytes for hour, 4 bytes for minutes and 4 bytes for seconds
      * 
      */
-    int playTimeHours;
+    int* playTimeHours;
     int playTimeMinutes;
     int playTimeSeconds;
+    
 };
 class SaveFile
 {
@@ -42,10 +43,16 @@ class SaveFile
         SaveFile(unicode_string path);
         ~SaveFile(){m_Delete();};
         void LoadAndValidate();
+        
+        /*Data pointers*/
+        int* playTimeHours = (int*)(&m_data[0x0e1c]);
+        int* playTimeMinutes = (int*)(&m_data[0x0e1c+4]);
+        int* playTimeSeconds = (int*)(&m_data[0x0e1c+8]);
+        
     private:
         unicode_string m_savePath;
         bool m_isLoaded;
-        byte* m_data;
+        byte* m_data =0x0;
         size_t m_dataSize = 0;
         void m_Validate();
         void m_Load();

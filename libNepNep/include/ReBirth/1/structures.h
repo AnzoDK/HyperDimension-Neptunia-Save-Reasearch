@@ -22,6 +22,7 @@ namespace ReBirth1
             void UnloadSaveFile(){if(m_saveFile != nullptr){delete m_saveFile; m_saveFile = 0x0;}};
             virtual void LoadSave(int slot) override;
             virtual void LoadSave(const std::string& saveFileName) override;
+            virtual void LoadSaveAndSlotIntoRAM() override;
         protected:
             SaveFile* m_saveFile = nullptr;
             SaveSlot* m_saveSlot = nullptr;

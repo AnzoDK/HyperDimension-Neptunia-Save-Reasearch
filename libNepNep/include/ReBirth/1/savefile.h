@@ -40,7 +40,8 @@ class SaveFile
 {
     public:
         SaveFile(unicode_string path);
-        ~SaveFile(){if(m_isLoaded){delete[] m_data;}};
+        ~SaveFile(){m_Delete();};
+        void LoadAndValidate();
     private:
         unicode_string m_savePath;
         bool m_isLoaded;
@@ -48,5 +49,7 @@ class SaveFile
         size_t m_dataSize = 0;
         void m_Validate();
         void m_Load();
+        void m_DeleteAndLoad();
+        void m_Delete();
 };
 }

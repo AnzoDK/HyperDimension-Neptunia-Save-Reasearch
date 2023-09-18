@@ -88,7 +88,8 @@ class SaveSlot
 {
     public:
         SaveSlot(unicode_string path);
-        ~SaveSlot(){if(m_isLoaded){delete[] m_data;}};
+        ~SaveSlot(){m_Delete();};
+        void LoadAndValidate();
     private:
         byte m_sanityHeader[8] = {0x53, 0x40, 0x56, 0x45, 0x30, 0x30, 0x30, 0x31};
         byte* m_data;
@@ -97,5 +98,7 @@ class SaveSlot
         bool m_isLoaded;
         void m_Validate();
         void m_Load();
+        void m_DeleteAndLoad();
+        void m_Delete();
 };
 }

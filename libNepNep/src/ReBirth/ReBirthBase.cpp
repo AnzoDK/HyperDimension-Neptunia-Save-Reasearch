@@ -16,6 +16,12 @@ void ReBirthBase::LoadSave(const std::string& saveFileName)
     
 }
 
+void ReBirthBase::LoadSaveAndSlotIntoRAM()
+{
+    
+}
+
+
 
 std::vector<std::string> ReBirthBase::PopulatedSlots()
 {

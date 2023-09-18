@@ -108,6 +108,17 @@ void ReBirth1::ReBirth1Manager::LoadSave(const std::string& saveFileName)
     
 }
 
+void ReBirth1::ReBirth1Manager::LoadSaveAndSlotIntoRAM()
+{
+    if(m_saveFile == 0x0 || m_saveSlot == 0x0)
+    {
+        std::cout << "SaveFile or SaveSlot is not initilized - Load a save first..." << std::endl;
+        return;
+    }
+    m_saveFile->LoadAndValidate();
+    m_saveSlot->LoadAndValidate();
+}
+
 
 /* SaveFile */
 
@@ -122,14 +133,38 @@ void SaveFile::m_Validate()
     if(!fs::exists(m_savePath))
     {
         UNICODE_OUT << "Save File: " << m_savePath << " Failed to validate... (File Not Found)" << std::endl;
-        exit(1);
+        //exit(1);
+        return;
     }
+    m_DeleteAndLoad();
     m_Load();
     
 }
 void SaveFile::m_Load()
 {
     m_data = CommonFunc::ReadUnsignedFile(m_savePath,m_dataSize);
+    m_isLoaded = 1;
+}
+
+void SaveFile::LoadAndValidate()
+{
+    m_Validate();
+}
+
+void SaveFile::m_DeleteAndLoad()
+{
+    m_Delete();
+    m_Load();
+}
+
+void ReBirth1::SaveFile::m_Delete()
+{
+    if(m_isLoaded)
+    {
+        delete[] m_data;
+        m_data = 0x0;
+        m_isLoaded = false;
+    }
 }
 
 /* SaveSlot */
@@ -144,7 +179,8 @@ void SaveSlot::m_Validate()
     if(!fs::exists(m_slotPath))
     {
         UNICODE_OUT << "SaveSlot File: " << m_slotPath << " Failed to validate... (File Not Found)" << std::endl;
-        exit(1);
+        //exit(1);
+        return;
     }
     m_Load();
 }
@@ -152,5 +188,29 @@ void SaveSlot::m_Validate()
 void SaveSlot::m_Load()
 {
     m_data = CommonFunc::ReadUnsignedFile(m_slotPath,m_dataSize);
+    m_isLoaded = 1;
+    
 }
+
+void SaveSlot::LoadAndValidate()
+{
+    m_Validate();
+}
+
+void SaveSlot::m_DeleteAndLoad()
+{
+    m_Delete();
+    m_Load();
+}
+
+void ReBirth1::SaveSlot::m_Delete()
+{
+    if(m_isLoaded)
+    {
+        delete[] m_data;
+        m_data = 0x0;
+        m_isLoaded = false;
+    }
+}
+
 

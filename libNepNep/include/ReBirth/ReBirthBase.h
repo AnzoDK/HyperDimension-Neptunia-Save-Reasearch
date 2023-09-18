@@ -20,6 +20,8 @@ class ReBirthBase
             virtual void LoadSave(const std::string& saveFileName);
             virtual void LoadSaveAndSlotIntoRAM();
             virtual std::vector<std::string> PopulatedSlots();
+            virtual SaveFileBase* GetSaveFile();
+            virtual SaveSlotBase* GetSaveSlot();
         protected:
             /*To ensure Windows path compatibility we use a wstring for the path*/
             //void m_ValidatePath();

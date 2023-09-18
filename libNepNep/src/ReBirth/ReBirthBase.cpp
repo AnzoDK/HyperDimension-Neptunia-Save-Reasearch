@@ -47,6 +47,16 @@ std::vector<std::string> ReBirthBase::PopulatedSlots()
     return slotVec;
 }
 
+SaveFileBase* ReBirthBase::GetSaveFile()
+{
+    return m_saveFile;
+}
+
+SaveSlotBase* ReBirthBase::GetSaveSlot()
+{
+    return m_saveSlot;
+}
+
 /*SaveSlotBase*/
 
 SaveSlotBase::SaveSlotBase(unicode_string path)

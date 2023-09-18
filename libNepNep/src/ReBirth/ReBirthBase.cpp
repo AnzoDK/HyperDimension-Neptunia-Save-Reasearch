@@ -1,6 +1,7 @@
 #include "../../include/ReBirth/ReBirthBase.h"
 #include "../../include/ReBirth/SaveFileBase.h"
 #include "../../include/ReBirth/SaveSlotBase.h"
+#include "../../include/ReBirth/ReBirthExtras.h"
 
 /*ReBirthBase*/
 
@@ -84,6 +85,16 @@ void SaveSlotBase::m_Load()
     
 }
 
+DataRefStructure SaveSlotBase::GetDataByKey(const std::string& key)
+{
+    //STUB
+}
+
+void SaveSlotBase::m_RegisterOffsetMap()
+{
+    
+}
+
 /*SaveFileBase*/
 
 SaveFileBase::SaveFileBase(unicode_string path)
@@ -120,6 +131,24 @@ void SaveFileBase::m_DeleteAndLoad()
 {
     m_Delete();
     m_Load();
+}
+
+DataRefStructure SaveFileBase::GetDataByKey(const std::string& key)
+{
+    //STUB
+}
+
+void SaveFileBase::m_RegisterOffsetMap()
+{
+    
+}
+
+//DataRefStructure
+
+DataRefStructure::DataRefStructure(size_t mDataOffset, byte* m_dataPtr)
+{
+    m_dataOffset = m_dataOffset;
+    _dataPtr = (byte*)m_dataPtr[mDataOffset];
 }
 
 

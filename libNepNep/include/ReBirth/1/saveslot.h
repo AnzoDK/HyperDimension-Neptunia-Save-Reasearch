@@ -1,4 +1,5 @@
 #pragma once
+#include "../SaveSlotBase.h"
 #include <iostream>
 #ifdef _WIN32
 #include <string>
@@ -84,21 +85,15 @@ namespace ReBirth1
     
 };
     
-class SaveSlot
+class SaveSlot : public SaveSlotBase
 {
     public:
         SaveSlot(unicode_string path);
         ~SaveSlot(){m_Delete();};
-        void LoadAndValidate();
-    private:
+        virtual void LoadAndValidate() override;
+    protected:
         byte m_sanityHeader[8] = {0x53, 0x40, 0x56, 0x45, 0x30, 0x30, 0x30, 0x31};
-        byte* m_data;
-        size_t m_dataSize = 0;
-        unicode_string m_slotPath;
-        bool m_isLoaded;
-        void m_Validate();
-        void m_Load();
-        void m_DeleteAndLoad();
-        void m_Delete();
+        virtual void m_Validate() override;
+        virtual void m_Load() override;
 };
 }

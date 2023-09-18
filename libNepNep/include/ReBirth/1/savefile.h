@@ -1,4 +1,5 @@
 #pragma once
+#include "../SaveFileBase.h"
 #include <iostream>
 #ifdef _WIN32
 #include <string>
@@ -37,26 +38,15 @@ struct _FileStructure
     int playTimeSeconds;
     
 };
-class SaveFile
+class SaveFile : public SaveFileBase
 {
     public:
         SaveFile(unicode_string path);
-        ~SaveFile(){m_Delete();};
-        void LoadAndValidate();
+        virtual ~SaveFile(){m_Delete();};
+        virtual void LoadAndValidate() override;
         
-        /*Data pointers*/
-        int* playTimeHours = (int*)(&m_data[0x0e1c]);
-        int* playTimeMinutes = (int*)(&m_data[0x0e1c+4]);
-        int* playTimeSeconds = (int*)(&m_data[0x0e1c+8]);
-        
-    private:
-        unicode_string m_savePath;
-        bool m_isLoaded;
-        byte* m_data =0x0;
-        size_t m_dataSize = 0;
-        void m_Validate();
-        void m_Load();
-        void m_DeleteAndLoad();
-        void m_Delete();
+    protected:
+        virtual void m_Validate() override;
+        virtual void m_Load() override;
 };
 }

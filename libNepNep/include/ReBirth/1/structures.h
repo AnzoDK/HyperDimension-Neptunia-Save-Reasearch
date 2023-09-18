@@ -24,8 +24,6 @@ namespace ReBirth1
             virtual void LoadSave(const std::string& saveFileName) override;
             virtual void LoadSaveAndSlotIntoRAM() override;
         protected:
-            SaveFile* m_saveFile = nullptr;
-            SaveSlot* m_saveSlot = nullptr;
     };
         
 };

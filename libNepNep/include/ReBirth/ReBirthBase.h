@@ -1,5 +1,7 @@
 #pragma once
 #include "../nepnepCommon.h"
+#include "SaveFileBase.h"
+#include "SaveSlotBase.h"
 #include <vector>
 #include <filesystem>
 namespace fs = std::filesystem;
@@ -22,4 +24,6 @@ class ReBirthBase
             /*To ensure Windows path compatibility we use a wstring for the path*/
             //void m_ValidatePath();
             unicode_string m_installPath = "";
+            SaveFileBase* m_saveFile = nullptr;
+            SaveSlotBase* m_saveSlot = nullptr;
 };

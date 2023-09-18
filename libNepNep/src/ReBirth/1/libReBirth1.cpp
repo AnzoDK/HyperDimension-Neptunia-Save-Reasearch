@@ -122,9 +122,8 @@ void ReBirth1::ReBirth1Manager::LoadSaveAndSlotIntoRAM()
 
 /* SaveFile */
 
-SaveFile::SaveFile(unicode_string path)
+SaveFile::SaveFile(unicode_string path) : SaveFileBase(path)
 {
-    m_savePath = path;
     m_Validate();
 }
 
@@ -151,26 +150,9 @@ void SaveFile::LoadAndValidate()
     m_Validate();
 }
 
-void SaveFile::m_DeleteAndLoad()
-{
-    m_Delete();
-    m_Load();
-}
-
-void ReBirth1::SaveFile::m_Delete()
-{
-    if(m_isLoaded)
-    {
-        delete[] m_data;
-        m_data = 0x0;
-        m_isLoaded = false;
-    }
-}
-
 /* SaveSlot */
-SaveSlot::SaveSlot(unicode_string path)
+SaveSlot::SaveSlot(unicode_string path) : SaveSlotBase(path)
 {
-    m_slotPath = path;
     m_Validate();
 }
 
@@ -196,21 +178,4 @@ void SaveSlot::LoadAndValidate()
 {
     m_Validate();
 }
-
-void SaveSlot::m_DeleteAndLoad()
-{
-    m_Delete();
-    m_Load();
-}
-
-void ReBirth1::SaveSlot::m_Delete()
-{
-    if(m_isLoaded)
-    {
-        delete[] m_data;
-        m_data = 0x0;
-        m_isLoaded = false;
-    }
-}
-
 

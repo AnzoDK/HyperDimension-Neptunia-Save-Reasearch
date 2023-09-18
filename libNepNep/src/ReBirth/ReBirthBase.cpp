@@ -1,4 +1,8 @@
 #include "../../include/ReBirth/ReBirthBase.h"
+#include "../../include/ReBirth/SaveFileBase.h"
+#include "../../include/ReBirth/SaveSlotBase.h"
+
+/*ReBirthBase*/
 
 ReBirthBase::ReBirthBase(unicode_string savePath)
 {
@@ -41,3 +45,81 @@ std::vector<std::string> ReBirthBase::PopulatedSlots()
     }
     return slotVec;
 }
+
+/*SaveSlotBase*/
+
+SaveSlotBase::SaveSlotBase(unicode_string path)
+{
+    m_slotPath = path;
+}
+
+
+void SaveSlotBase::LoadAndValidate()
+{
+    
+}
+
+void SaveSlotBase::m_Delete()
+{
+    if(m_isLoaded)
+    {
+        delete[] m_data;
+        m_data = 0x0;
+        m_isLoaded = false;
+    }
+}
+
+void SaveSlotBase::m_DeleteAndLoad()
+{
+    m_Delete();
+    m_Load();
+}
+
+void SaveSlotBase::m_Validate()
+{
+    
+}
+void SaveSlotBase::m_Load()
+{
+    
+}
+
+/*SaveFileBase*/
+
+SaveFileBase::SaveFileBase(unicode_string path)
+{
+    m_savePath = path;
+}
+
+void SaveFileBase::m_Delete()
+{
+    if(m_isLoaded)
+    {
+        delete[] m_data;
+        m_data = 0x0;
+        m_isLoaded = false;
+    }
+}
+
+void SaveFileBase::LoadAndValidate()
+{
+    
+}
+
+void SaveFileBase::m_Validate()
+{
+    
+}
+
+void SaveFileBase::m_Load()
+{
+    
+}
+
+void SaveFileBase::m_DeleteAndLoad()
+{
+    m_Delete();
+    m_Load();
+}
+
+

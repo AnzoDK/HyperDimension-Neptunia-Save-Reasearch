@@ -165,7 +165,7 @@ bool SaveFileBase::IsLoaded()
 
 std::pair<std::string, DataRefStructure> SaveSlotBase::GetDataPairByKey(const std::string& key)
 {
-    return std::pair<std::string, DataRefStructure>(key,m_dataRefMap[key]);
+    return std::pair<std::string, DataRefStructure>(key,m_dataRefMap.at(key));
 }
 
 

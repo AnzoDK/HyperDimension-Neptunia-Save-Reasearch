@@ -110,6 +110,11 @@ bool SaveSlotBase::IsLoaded()
     return m_isLoaded;
 }
 
+std::pair<std::string, DataRefStructure> SaveSlotBase::GetDataPairByKey(const std::string& key)
+{
+    return std::pair<std::string, DataRefStructure>(key,m_dataRefMap.at(key));
+}
+
 /*SaveFileBase*/
 
 SaveFileBase::SaveFileBase(unicode_string path)
@@ -163,7 +168,7 @@ bool SaveFileBase::IsLoaded()
     return m_isLoaded;
 }
 
-std::pair<std::string, DataRefStructure> SaveSlotBase::GetDataPairByKey(const std::string& key)
+std::pair<std::string, DataRefStructure> SaveFileBase::GetDataPairByKey(const std::string& key)
 {
     return std::pair<std::string, DataRefStructure>(key,m_dataRefMap.at(key));
 }

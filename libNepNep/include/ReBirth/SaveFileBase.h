@@ -10,6 +10,7 @@ public:
     virtual ~SaveFileBase(){m_Delete();};
     virtual void LoadAndValidate();
     virtual DataRefStructure GetDataByKey(const std::string& key);
+    virtual std::pair<std::string, DataRefStructure> GetDataPairByKey(const std::string& key);
     virtual bool IsLoaded();
 protected:
     unicode_string m_savePath = "";

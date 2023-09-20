@@ -181,7 +181,7 @@ std::pair<std::string, DataRefStructure> SaveFileBase::GetDataPairByKey(const st
 DataRefStructure::DataRefStructure(size_t mDataOffset, byte* m_dataPtr, __ExpectedDataType dataType)
 {
     m_dataOffset = m_dataOffset;
-    _dataPtr = (byte*)m_dataPtr[mDataOffset];
+    _dataPtr = (byte*)&m_dataPtr[mDataOffset];
     expectedDataType = dataType;
     switch(expectedDataType)
     {

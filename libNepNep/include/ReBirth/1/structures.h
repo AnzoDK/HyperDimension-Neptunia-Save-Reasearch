@@ -20,8 +20,8 @@ namespace ReBirth1
             virtual ~ReBirth1Manager(){UnloadSaveFile(); UnloadSaveSlot();};
             void UnloadSaveSlot(){if(m_saveSlot != nullptr){delete m_saveSlot; m_saveSlot = 0x0;}};
             void UnloadSaveFile(){if(m_saveFile != nullptr){delete m_saveFile; m_saveFile = 0x0;}};
-            virtual void LoadSave(int slot) override;
-            virtual void LoadSave(const std::string& saveFileName) override;
+            virtual bool LoadSave(int slot) override;
+            virtual bool LoadSave(const std::string& saveFileName) override;
             virtual void LoadSaveAndSlotIntoRAM() override;
         protected:
     };

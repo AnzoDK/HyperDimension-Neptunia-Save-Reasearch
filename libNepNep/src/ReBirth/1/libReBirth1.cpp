@@ -51,13 +51,13 @@ ReBirth1Manager::ReBirth1Manager(unicode_string instPath) : ReBirthBase(instPath
 }*/
 
 
-void ReBirth1::ReBirth1Manager::LoadSave(int slot)
+bool ReBirth1::ReBirth1Manager::LoadSave(int slot)
 {
     unicode_string slotStr = to_unicode_string(slot);
     if(slotStr.size() > 4)
     {
         std::cout << "Slot: " << slot << " is too large to be a valid slot" << std::endl;
-        exit(1);
+        return false;
     }
     int leadingZeros = 4-slotStr.size();
 #ifdef _WIN32
@@ -79,26 +79,28 @@ void ReBirth1::ReBirth1Manager::LoadSave(int slot)
     m_saveFile = new SaveFile(slotPath+L".sav");
     m_saveSlot = new SaveSlot(slotPath+L".savslot");
 #else
+    UnloadSaveSlot();
+    UnloadSaveFile();
     m_saveFile = new SaveFile(slotPath+".sav");
     m_saveSlot = new SaveSlot(slotPath+".savslot");
 #endif
-    
+    return true;
     
 }
 
-void ReBirth1::ReBirth1Manager::LoadSave(const std::string& saveFileName)
+bool ReBirth1::ReBirth1Manager::LoadSave(const std::string& saveFileName)
 {
     if(saveFileName.substr(saveFileName.length()-4) != ".sav")
     {
         std::cout << "SaveFile: \"" << saveFileName << "\" is not a valid savefile (checked against: \"" << saveFileName.substr(saveFileName.length()-4) << "\")" << std::endl;
-        return;
+        return false;
     }
     unicode_string savPath = m_installPath + UNICODE_CHAR_OS_SEPARATOR + saveFileName;
     unicode_string savSlotPath = savPath+"slot";
     if(!fs::exists(savPath) || !fs::exists(savSlotPath))
     {
         std::cout << "SaveFile missing - Can't access: \"" << saveFileName << "\" or its associated .savslot (" << std::string(saveFileName + "slot") << ")" << std::endl;
-        return;
+        return false;
     }
 
     UnloadSaveFile();
@@ -106,6 +108,7 @@ void ReBirth1::ReBirth1Manager::LoadSave(const std::string& saveFileName)
     UnloadSaveSlot();
     m_saveSlot = new SaveSlot(savSlotPath);
     
+    return true; 
 }
 
 void ReBirth1::ReBirth1Manager::LoadSaveAndSlotIntoRAM()

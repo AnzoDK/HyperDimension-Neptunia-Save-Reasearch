@@ -16,8 +16,8 @@ class ReBirthBase
                 ReBirthBase(unicode_string savePath);
             #endif     
             virtual ~ReBirthBase(){};
-            virtual void LoadSave(int slot);
-            virtual void LoadSave(const std::string& saveFileName);
+            virtual bool LoadSave(int slot);
+            virtual bool LoadSave(const std::string& saveFileName);
             virtual void LoadSaveAndSlotIntoRAM();
             virtual std::vector<std::string> PopulatedSlots();
             virtual SaveFileBase* GetSaveFile();

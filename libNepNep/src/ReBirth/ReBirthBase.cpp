@@ -12,14 +12,14 @@ ReBirthBase::ReBirthBase(unicode_string savePath)
 }
 
 
-void ReBirthBase::LoadSave(int slot)
+bool ReBirthBase::LoadSave(int slot)
 {
-    
+    return false;
 }
 
-void ReBirthBase::LoadSave(const std::string& saveFileName)
+bool ReBirthBase::LoadSave(const std::string& saveFileName)
 {
-    
+    return false;
 }
 
 void ReBirthBase::LoadSaveAndSlotIntoRAM()

@@ -2,7 +2,7 @@
 #include "../nepnepCommon.h"
 #include <iostream>
 #include <cstdint>
-enum __ExpectedDataType{UNKNOWN,INT8,INT16,INT32,INT64,UINT8,UINT16,UINT32,UINT64,CSTRING};
+enum __ExpectedDataType{UNKNOWN,INT8,INT16,INT32,INT64,UINT8,UINT16,UINT32,UINT64,FLOAT,CSTRING};
 class DataRefStructure
 {
 public:
@@ -21,12 +21,17 @@ public:
     uint32_t* ThrowToUint32() { return (uint32_t*)_dataPtr; };
     uint64_t* ThrowToUint64() { return (uint64_t*)_dataPtr; };
     
+    /*Throw Floating*/
+    float* ThrowToFloat() { return (float*)_dataPtr;};
+    
+    
     /*Throw Other*/
     const char* ThrowToCString(){ return (char*)_dataPtr; };
     
     byte* _dataPtr = 0x0;
     size_t m_dataOffset = 0x0;
     __ExpectedDataType expectedDataType = UNKNOWN;
+    
 };
 
 

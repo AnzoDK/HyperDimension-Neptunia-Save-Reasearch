@@ -183,7 +183,7 @@ DataRefStructure::DataRefStructure(size_t mDataOffset, byte* m_dataPtr, __Expect
     m_dataOffset = m_dataOffset;
     _dataPtr = (byte*)m_dataPtr[mDataOffset];
     expectedDataType = dataType;
-    switch(structure.expectedDataType)
+    switch(expectedDataType)
     {
     case UNKNOWN:
         m_exptectedTypeSize = 0;

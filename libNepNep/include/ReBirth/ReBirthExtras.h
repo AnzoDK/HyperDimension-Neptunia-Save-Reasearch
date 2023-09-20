@@ -31,6 +31,7 @@ public:
     byte* _dataPtr = 0x0;
     size_t m_dataOffset = 0x0;
     __ExpectedDataType expectedDataType = UNKNOWN;
+    unsigned int m_exptectedTypeSize = 0;
     
 };
 

@@ -2,6 +2,7 @@
 #include "../../include/ReBirth/SaveFileBase.h"
 #include "../../include/ReBirth/SaveSlotBase.h"
 #include "../../include/ReBirth/ReBirthExtras.h"
+#include <string.h>
 
 /*ReBirthBase*/
 
@@ -182,6 +183,44 @@ DataRefStructure::DataRefStructure(size_t mDataOffset, byte* m_dataPtr, __Expect
     m_dataOffset = m_dataOffset;
     _dataPtr = (byte*)m_dataPtr[mDataOffset];
     expectedDataType = dataType;
+    switch(structure.expectedDataType)
+    {
+    case UNKNOWN:
+        m_exptectedTypeSize = 0;
+        break;
+    case UINT8:
+        m_exptectedTypeSize = 1;
+        break;
+    case UINT16:
+        m_exptectedTypeSize = 2;
+        break;
+    case UINT32:
+        m_exptectedTypeSize = 4;
+        break;
+    case UINT64:
+        m_exptectedTypeSize = 8;
+        break;
+    case INT8:
+        m_exptectedTypeSize = 1;
+        break;
+    case INT16:
+        m_exptectedTypeSize = 2;
+        break;
+    case INT32:
+        m_exptectedTypeSize = 4;
+        break;
+    case INT64:
+        m_exptectedTypeSize = 8;
+        break;
+    case FLOAT:
+        m_exptectedTypeSize = 4;
+        break;
+    case CSTRING:
+        m_exptectedTypeSize = strlen((char*)m_dataPtr);
+        break;
+    default:
+        std::cout << "expectedDataType was not set" << std::endl;
+    }
 }
 DataRefStructure::~DataRefStructure()
 {

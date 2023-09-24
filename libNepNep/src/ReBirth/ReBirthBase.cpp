@@ -114,7 +114,7 @@ void SaveSlotBase::m_Load()
     
 }
 
-DataRefStructure SaveSlotBase::GetDataByKey(const std::string& key)
+DataRefStructure* SaveSlotBase::GetDataByKey(const std::string& key)
 {
     //STUB
 }
@@ -129,9 +129,9 @@ bool SaveSlotBase::IsLoaded()
     return m_isLoaded;
 }
 
-std::pair<std::string, DataRefStructure> SaveSlotBase::GetDataPairByKey(const std::string& key)
+std::pair<std::string, DataRefStructure*> SaveSlotBase::GetDataPairByKey(const std::string& key)
 {
-    return std::pair<std::string, DataRefStructure>(key,m_dataRefMap.at(key));
+    return std::pair<std::string, DataRefStructure*>(key,m_dataRefMap.at(key));
 }
 
 unicode_string SaveSlotBase::GetFullSavePath()
@@ -205,7 +205,7 @@ void SaveFileBase::m_DeleteAndLoad()
     m_Load();
 }
 
-DataRefStructure SaveFileBase::GetDataByKey(const std::string& key)
+DataRefStructure* SaveFileBase::GetDataByKey(const std::string& key)
 {
     //STUB
 }

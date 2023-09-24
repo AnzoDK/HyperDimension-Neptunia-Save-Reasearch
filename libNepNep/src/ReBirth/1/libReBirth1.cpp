@@ -152,7 +152,7 @@ void ReBirth1Manager::CommitChanges()
     auto data = m_saveSlot->GetDataPairByKey("savFileMD5Hash");
     for(int i = 0; i < 16; i++)
     {
-        data.second._dataPtr[i] = hash[i];
+        data.second->_dataPtr[i] = hash[i];
     }
     
     fs::remove(saveSlotPath);

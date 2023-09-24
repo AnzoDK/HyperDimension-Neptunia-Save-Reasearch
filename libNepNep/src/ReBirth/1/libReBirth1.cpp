@@ -214,6 +214,9 @@ void SaveSlot::m_Validate()
         return;
     }
     m_Load();
+    m_Delete();
+    m_Load();
+    m_RegisterOffsetMap();
 }
 
 void SaveSlot::m_Load()

@@ -138,10 +138,12 @@ void SaveSlotBase::CommitToDisk()
     }
     std::ofstream saveStream = std::ofstream(m_slotPath, std::ios::out | std::ios::binary);
     saveStream.write((char*)m_data, m_dataSize); //Overwrite file
-    if((bool)saveStream.failbit || (bool)saveStream.badbit)
+    
+    if(saveStream.fail())
     {
         std::cout << "Failed to write savefile" << std::endl;
     }
+    saveStream.close();
 }
 
 
@@ -218,10 +220,11 @@ void SaveFileBase::CommitToDisk()
     }
     std::ofstream saveStream = std::ofstream(m_savePath, std::ios::out | std::ios::binary);
     saveStream.write((char*)m_data, m_dataSize); //Overwrite file
-    if((bool)saveStream.failbit || (bool)saveStream.badbit)
+    if(saveStream.fail())
     {
         std::cout << "Failed to write savefile" << std::endl;
     }
+    saveStream.close();
 }
 
 byte* SaveFileBase::GetBufferMD5Hash()

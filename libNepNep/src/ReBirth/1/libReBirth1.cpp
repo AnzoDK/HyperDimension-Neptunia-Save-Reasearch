@@ -139,7 +139,7 @@ void ReBirth1Manager::CommitChanges()
     fs::copy_file(savePath, savePath.substr(0,savePath.length()-4) + timeString + ".sav");
     
     std::string saveSlotPath = m_saveSlot->GetFullSavePath();
-    fs::copy_file(saveSlotPath, savePath.substr(0,saveSlotPath.length()-4) + timeString + ".savslot");
+    fs::copy_file(saveSlotPath, savePath.substr(0,saveSlotPath.length()-9) + timeString + ".savslot");
     
     fs::remove(savePath);
     m_saveFile->CommitToDisk();

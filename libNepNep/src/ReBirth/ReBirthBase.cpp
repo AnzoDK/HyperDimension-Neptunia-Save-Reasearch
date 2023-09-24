@@ -244,7 +244,7 @@ byte* SaveFileBase::GetBufferMD5Hash()
 DataRefStructure::DataRefStructure(size_t mDataOffset, byte* m_dataPtr, __ExpectedDataType dataType, size_t dataSize)
 {
     m_dataOffset = mDataOffset;
-    _dataPtr = (byte*)&m_dataPtr[mDataOffset];
+    _dataPtr = m_dataPtr+mDataOffset;
     expectedDataType = dataType;
     switch(expectedDataType)
     {

@@ -193,9 +193,9 @@ void SaveFile::LoadAndValidate()
 
 void SaveFile::m_RegisterOffsetMap()
 {
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("playTimeHours",DataRefStructure(0xe1c,m_data,UINT32)));
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("playTimeMinutes",DataRefStructure(0xe20,m_data,UINT32)));
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("playTimeSeconds",DataRefStructure(0xe24,m_data,UINT32)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure*>("playTimeHours", new DataRefStructure(0xe1c,m_data,UINT32)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure*>("playTimeMinutes",new DataRefStructure(0xe20,m_data,UINT32)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure*>("playTimeSeconds", new DataRefStructure(0xe24,m_data,UINT32)));
     
 }
 
@@ -232,11 +232,11 @@ void SaveSlot::LoadAndValidate()
 }
 void SaveSlot::m_RegisterOffsetMap()
 {
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savslotHeader",DataRefStructure(0,m_data,CUSTOM,8)));
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savFileMD5Hash",DataRefStructure(0x18,m_data,CUSTOM,16)));
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savTimeStampHour",DataRefStructure(0x334,m_data,UINT16)));
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savTimeStampMin",DataRefStructure(0x336,m_data,UINT16)));
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("SavTimeStampSec",DataRefStructure(0x338,m_data,UINT16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure*>("savslotHeader", new DataRefStructure(0,m_data,CUSTOM,8)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure*>("savFileMD5Hash", new DataRefStructure(0x18,m_data,CUSTOM,16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure*>("savTimeStampHour", new DataRefStructure(0x334,m_data,UINT16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure*>("savTimeStampMin",new DataRefStructure(0x336,m_data,UINT16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure*>("SavTimeStampSec", new DataRefStructure(0x338,m_data,UINT16)));
     
     
 }

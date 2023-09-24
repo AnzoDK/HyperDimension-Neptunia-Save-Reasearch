@@ -95,5 +95,6 @@ class SaveSlot : public SaveSlotBase
         byte m_sanityHeader[8] = {0x53, 0x40, 0x56, 0x45, 0x30, 0x30, 0x30, 0x31};
         virtual void m_Validate() override;
         virtual void m_Load() override;
+        virtual void m_RegisterOffsetMap() override;
 };
 }

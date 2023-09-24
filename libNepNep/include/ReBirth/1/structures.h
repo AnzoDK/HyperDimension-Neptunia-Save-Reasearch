@@ -23,6 +23,7 @@ namespace ReBirth1
             virtual bool LoadSave(int slot) override;
             virtual bool LoadSave(const std::string& saveFileName) override;
             virtual void LoadSaveAndSlotIntoRAM() override;
+            virtual void CommitChanges() override;
         protected:
     };
         

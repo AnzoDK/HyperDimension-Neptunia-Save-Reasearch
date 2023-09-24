@@ -3,6 +3,9 @@
 #include "../../../include/commonFunc.h"
 #include <fstream>
 #include <filesystem> //C++ >= 17
+#include <iostream>
+#include <format>
+#include <chrono>
 namespace fs = std::filesystem;
 using namespace ReBirth1;
 
@@ -123,6 +126,40 @@ void ReBirth1::ReBirth1Manager::LoadSaveAndSlotIntoRAM()
 }
 
 
+void ReBirth1Manager::CommitChanges()
+{
+    //Start with updating the .sav file - This must be done first, as the .savslot file requires an MD5 hash of the .sav file
+    const auto now = std::chrono::system_clock::now();
+    time_t backupTime = std::chrono::system_clock::to_time_t(now);
+    tm local_tm = *localtime(&backupTime);
+    std::string timeString = std::to_string(local_tm.tm_mday) + std::string("_") + std::to_string(local_tm.tm_mon) + std::string("_") + std::to_string(local_tm.tm_year) + std::string("_") + std::to_string(local_tm.tm_hour) + std::to_string(local_tm.tm_min) + std::to_string(local_tm.tm_sec);
+    
+    //Create backup of save file + savslot file
+    std::string savePath = m_saveFile->GetFullSavePath();
+    fs::copy_file(savePath, savePath.substr(0,savePath.length()-4) + timeString + ".sav");
+    
+    std::string saveSlotPath = m_saveSlot->GetFullSavePath();
+    fs::copy_file(saveSlotPath, savePath.substr(0,saveSlotPath.length()-4) + timeString + ".savslot");
+    
+    fs::remove(savePath);
+    m_saveFile->CommitToDisk();
+    //Reload the file
+    m_saveFile->LoadAndValidate(); //no need as we have saved a copy of the buffer, BUT it's a good idea, as it checks for errors in the file
+    //LibCrypto + LibOpenSSL
+    byte* hash = m_saveFile->GetBufferMD5Hash();
+    
+    //Update the saveSlots internal MD5 hash
+    auto data = m_saveSlot->GetDataPairByKey("savFileMD5Hash");
+    for(int i = 0; i < 16; i++)
+    {
+        data.second._dataPtr[i] = hash[i];
+    }
+    
+    fs::remove(saveSlotPath);
+    m_saveSlot->CommitToDisk();
+    delete[] hash;
+}
+
 /* SaveFile */
 
 SaveFile::SaveFile(unicode_string path) : SaveFileBase(path)
@@ -150,7 +187,7 @@ void SaveFile::m_Load()
 }
 
 void SaveFile::LoadAndValidate()
-{
+{      
     m_Validate();
 }
 
@@ -189,5 +226,15 @@ void SaveSlot::m_Load()
 void SaveSlot::LoadAndValidate()
 {
     m_Validate();
+}
+void SaveSlot::m_RegisterOffsetMap()
+{
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savslotHeader",DataRefStructure(0,m_data,CUSTOM,8)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savFileMD5Hash",DataRefStructure(0x18,m_data,CUSTOM,16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savTimeStampHour",DataRefStructure(0x334,m_data,UINT16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savTimeStampMin",DataRefStructure(0x336,m_data,UINT16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("SavTimeStampSec",DataRefStructure(0x338,m_data,UINT16)));
+    
+    
 }
 

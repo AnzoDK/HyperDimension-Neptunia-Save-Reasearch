@@ -1,6 +1,7 @@
 CXX:=g++
 DEBUG:=-g3
-CXX_FLAGS:=-std=c++17
+CXX_VERSION:=c++20
+CXX_FLAGS:=-std=$(CXX_VERSION)
 LDD_FLAGS:=-Wl,-rpath,./
 CXX_TEST_FLAGS:=-L./
 LIB_VERSION:=0.1

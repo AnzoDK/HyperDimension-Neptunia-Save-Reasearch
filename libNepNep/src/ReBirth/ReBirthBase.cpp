@@ -3,6 +3,8 @@
 #include "../../include/ReBirth/SaveSlotBase.h"
 #include "../../include/ReBirth/ReBirthExtras.h"
 #include <string.h>
+#include <fstream>
+#include <openssl/md5.h>
 
 /*ReBirthBase*/
 
@@ -122,6 +124,27 @@ std::pair<std::string, DataRefStructure> SaveSlotBase::GetDataPairByKey(const st
     return std::pair<std::string, DataRefStructure>(key,m_dataRefMap.at(key));
 }
 
+unicode_string SaveSlotBase::GetFullSavePath()
+{
+    return unicode_string(m_slotPath);
+}
+
+void SaveSlotBase::CommitToDisk()
+{
+    if(!m_isLoaded)
+    {
+        std::cout << "SaveFile: \"" << m_slotPath << "\" is not loaded, can't commit to disk" << std::endl;
+        return;
+    }
+    std::ofstream saveStream = std::ofstream(m_slotPath, std::ios::out | std::ios::binary);
+    saveStream.write((char*)m_data, m_dataSize); //Overwrite file
+    if((bool)saveStream.failbit || (bool)saveStream.badbit)
+    {
+        std::cout << "Failed to write savefile" << std::endl;
+    }
+}
+
+
 /*SaveFileBase*/
 
 SaveFileBase::SaveFileBase(unicode_string path)
@@ -181,18 +204,50 @@ std::pair<std::string, DataRefStructure> SaveFileBase::GetDataPairByKey(const st
 }
 
 
+unicode_string SaveFileBase::GetFullSavePath()
+{
+    return unicode_string(m_savePath);
+}
+
+void SaveFileBase::CommitToDisk()
+{
+    if(!m_isLoaded)
+    {
+        std::cout << "SaveFile: \"" << m_savePath << "\" is not loaded, can't commit to disk" << std::endl;
+        return;
+    }
+    std::ofstream saveStream = std::ofstream(m_savePath, std::ios::out | std::ios::binary);
+    saveStream.write((char*)m_data, m_dataSize); //Overwrite file
+    if((bool)saveStream.failbit || (bool)saveStream.badbit)
+    {
+        std::cout << "Failed to write savefile" << std::endl;
+    }
+}
+
+byte* SaveFileBase::GetBufferMD5Hash()
+{
+    if(!m_isLoaded)
+    {
+        std::cout << "File is load loaded, can't generate hash" << std::endl;
+        return 0x0;
+    }
+    unsigned char* md_buffer = new byte[MD5_DIGEST_LENGTH];
+    return MD5(m_data, m_dataSize, md_buffer); //This is depricated, but we need MD5 for this - the MD5.h should prob be used instead
+}
+
 
 //DataRefStructure
 
-DataRefStructure::DataRefStructure(size_t mDataOffset, byte* m_dataPtr, __ExpectedDataType dataType)
+DataRefStructure::DataRefStructure(size_t mDataOffset, byte* m_dataPtr, __ExpectedDataType dataType, size_t dataSize)
 {
-    m_dataOffset = m_dataOffset;
+    m_dataOffset = mDataOffset;
     _dataPtr = (byte*)&m_dataPtr[mDataOffset];
     expectedDataType = dataType;
     switch(expectedDataType)
     {
     case UNKNOWN:
-        m_exptectedTypeSize = 0;
+    case CUSTOM:
+        m_exptectedTypeSize = dataSize;
         break;
     case UINT8:
         m_exptectedTypeSize = 1;

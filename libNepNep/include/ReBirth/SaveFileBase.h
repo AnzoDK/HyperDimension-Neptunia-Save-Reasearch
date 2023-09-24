@@ -12,6 +12,9 @@ public:
     virtual DataRefStructure GetDataByKey(const std::string& key);
     virtual std::pair<std::string, DataRefStructure> GetDataPairByKey(const std::string& key);
     virtual bool IsLoaded();
+    virtual unicode_string GetFullSavePath();
+    virtual void CommitToDisk();
+    virtual byte* GetBufferMD5Hash();//This is kinda stoopid...
 protected:
     unicode_string m_savePath = "";
     bool m_isLoaded = 0;

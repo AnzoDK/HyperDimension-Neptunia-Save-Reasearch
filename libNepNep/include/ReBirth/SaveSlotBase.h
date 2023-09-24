@@ -10,6 +10,8 @@ public:
     virtual DataRefStructure GetDataByKey(const std::string& key);
     virtual std::pair<std::string, DataRefStructure> GetDataPairByKey(const std::string& key);
     virtual bool IsLoaded();
+    virtual unicode_string GetFullSavePath();
+    virtual void CommitToDisk();
 protected:
     byte* m_sanityHeader = 0x0;
     byte* m_data = 0x0;

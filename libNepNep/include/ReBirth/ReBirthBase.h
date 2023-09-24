@@ -20,6 +20,7 @@ class ReBirthBase
             virtual bool LoadSave(const std::string& saveFileName);
             virtual void LoadSaveAndSlotIntoRAM();
             virtual std::vector<std::string> PopulatedSlots();
+            virtual void CommitChanges();
             virtual SaveFileBase* GetSaveFile();
             virtual SaveSlotBase* GetSaveSlot();
         protected:

@@ -48,6 +48,12 @@ std::vector<std::string> ReBirthBase::PopulatedSlots()
     return slotVec;
 }
 
+void ReBirthBase::CommitChanges()
+{
+    
+}
+
+
 SaveFileBase* ReBirthBase::GetSaveFile()
 {
     return m_saveFile;

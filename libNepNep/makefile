@@ -4,6 +4,7 @@ CXX_VERSION:=c++20
 CXX_FLAGS:=-std=$(CXX_VERSION)
 LDD_FLAGS:=-Wl,-rpath,./
 CXX_TEST_FLAGS:=-L./
+CXX_LINKER_FLAGS:=-lssl -lcrypto
 LIB_VERSION:=0.1
 #ALL_NEP_COMPONENTS:=ReBirth1
 
@@ -14,7 +15,7 @@ REBIRTH_1_TEST_OBJECT:=
 #Combined
 ALL_REBIRTH_OBJECTS:=common.nepO reBirthBase.nepO $(REBIRTH_1_LIB_OBJECTS)
 default: $(ALL_REBIRTH_OBJECTS)
-	$(CXX) $(ALL_REBIRTH_OBJECTS) $(DEBUG) $(CXX_FLAGS) --shared -o libnepnep.so.$(LIB_VERSION)
+	$(CXX) $(ALL_REBIRTH_OBJECTS) $(DEBUG) $(CXX_FLAGS) --shared -o libnepnep.so.$(LIB_VERSION) $(CXX_LINKER_FLAGS)
 	make tests
 	#Running Tests
 	make run_tests

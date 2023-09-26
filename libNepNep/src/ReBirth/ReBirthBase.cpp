@@ -83,15 +83,6 @@ void SaveSlotBase::m_Delete()
 {
     if(m_isLoaded)
     {
-        std::vector<std::string> keys = std::vector<std::string>();
-        for(std::map<std::string,DataRefStructure*>::iterator it = m_dataRefMap.begin(); it != m_dataRefMap.end(); ++it)
-        {
-            keys.push_back(it->first);
-        }
-        for(size_t i = 0; i < keys.size(); i++)
-        {
-            delete m_dataRefMap.at(keys.at(i));
-        }
         m_dataRefMap.clear();
         delete[] m_data;
         m_data = 0x0;
@@ -114,7 +105,7 @@ void SaveSlotBase::m_Load()
     
 }
 
-DataRefStructure* SaveSlotBase::GetDataByKey(const std::string& key)
+DataRefStructure SaveSlotBase::GetDataByKey(const std::string& key)
 {
     //STUB
 }
@@ -129,9 +120,9 @@ bool SaveSlotBase::IsLoaded()
     return m_isLoaded;
 }
 
-std::pair<std::string, DataRefStructure*> SaveSlotBase::GetDataPairByKey(const std::string& key)
+std::pair<std::string, DataRefStructure> SaveSlotBase::GetDataPairByKey(const std::string& key)
 {
-    return std::pair<std::string, DataRefStructure*>(key,m_dataRefMap.at(key));
+    return std::pair<std::string, DataRefStructure>(key,m_dataRefMap.at(key));
 }
 
 unicode_string SaveSlotBase::GetFullSavePath()
@@ -168,15 +159,6 @@ void SaveFileBase::m_Delete()
 {
     if(m_isLoaded)
     {
-        std::vector<std::string> keys = std::vector<std::string>();
-        for(std::map<std::string,DataRefStructure*>::iterator it = m_dataRefMap.begin(); it != m_dataRefMap.end(); ++it)
-        {
-            keys.push_back(it->first);
-        }
-        for(size_t i = 0; i < keys.size(); i++)
-        {
-            delete m_dataRefMap.at(keys.at(i));
-        }
         m_dataRefMap.clear();
         delete[] m_data;
         m_data = 0x0;
@@ -205,7 +187,7 @@ void SaveFileBase::m_DeleteAndLoad()
     m_Load();
 }
 
-DataRefStructure* SaveFileBase::GetDataByKey(const std::string& key)
+DataRefStructure SaveFileBase::GetDataByKey(const std::string& key)
 {
     //STUB
 }
@@ -220,9 +202,9 @@ bool SaveFileBase::IsLoaded()
     return m_isLoaded;
 }
 
-std::pair<std::string, DataRefStructure*> SaveFileBase::GetDataPairByKey(const std::string& key)
+std::pair<std::string, DataRefStructure> SaveFileBase::GetDataPairByKey(const std::string& key)
 {
-    return std::pair<std::string, DataRefStructure*>(key,m_dataRefMap.at(key));
+    return std::pair<std::string, DataRefStructure>(key,m_dataRefMap.at(key));
 }
 
 

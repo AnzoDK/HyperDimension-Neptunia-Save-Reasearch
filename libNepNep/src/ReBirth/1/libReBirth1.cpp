@@ -196,6 +196,7 @@ void SaveFile::m_RegisterOffsetMap()
     m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("playTimeHours", DataRefStructure(0xe1c,m_data,UINT32)));
     m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("playTimeMinutes",DataRefStructure(0xe20,m_data,UINT32)));
     m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("playTimeSeconds", DataRefStructure(0xe24,m_data,UINT32)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("saveCount", DataRefStructure(12,m_data,UINT32)));
     
 }
 

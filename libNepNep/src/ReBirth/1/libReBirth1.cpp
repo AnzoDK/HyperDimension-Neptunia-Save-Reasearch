@@ -132,7 +132,7 @@ void ReBirth1Manager::CommitChanges()
     const auto now = std::chrono::system_clock::now();
     time_t backupTime = std::chrono::system_clock::to_time_t(now);
     tm local_tm = *localtime(&backupTime);
-    std::string timeString = std::to_string(local_tm.tm_mday) + std::string("_") + std::to_string(local_tm.tm_mon) + std::string("_") + std::to_string(local_tm.tm_year) + std::string("_") + std::to_string(local_tm.tm_hour) + std::to_string(local_tm.tm_min) + std::to_string(local_tm.tm_sec);
+    std::string timeString = "-" + std::to_string(local_tm.tm_mday) + std::string("_") + std::to_string(local_tm.tm_mon) + std::string("_") + std::to_string(local_tm.tm_year) + std::string("_") + std::to_string(local_tm.tm_hour) + std::to_string(local_tm.tm_min) + std::to_string(local_tm.tm_sec);
     
     //Create backup of save file + savslot file
     std::string savePath = m_saveFile->GetFullSavePath();

@@ -196,7 +196,11 @@ void SaveFile::m_RegisterOffsetMap()
     m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("playTimeHours", DataRefStructure(0xe1c,m_data,UINT32)));
     m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("playTimeMinutes",DataRefStructure(0xe20,m_data,UINT32)));
     m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("playTimeSeconds", DataRefStructure(0xe24,m_data,UINT32)));
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("saveCount", DataRefStructure(12,m_data,UINT32)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("saveCount", DataRefStructure(0xC,m_data,UINT32)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("sharesPlaneptune", DataRefStructure(0x0F1C,m_data,UINT32)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("sharesLeanbox", DataRefStructure(0x0F20,m_data,UINT32)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("sharesLastation", DataRefStructure(0x0F24,m_data,UINT32)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("sharesOther", DataRefStructure(0x0F28,m_data,UINT32)));
     
 }
 

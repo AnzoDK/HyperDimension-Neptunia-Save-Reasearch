@@ -245,8 +245,8 @@ byte* SaveFileBase::GetBufferMD5Hash()
 
 DataRefStructure::DataRefStructure(size_t mDataOffset, byte* m_dataPtr, __ExpectedDataType dataType, size_t dataSize)
 {
-    m_dataOffset = mDataOffset; //This Offset is compared to the BASE_PTR!!!! - NOT IN RELATION TO THE _dataPtr!!!!!!!!!!!!
-    _dataPtr = m_dataPtr;/*+mDataOffset;*/ //<- GREAT EXAMPLE OF WHAT **NOT** TO DO!
+    m_dataOffset = mDataOffset;
+    _dataPtr = (byte*)((uint64_t)(m_dataPtr+m_dataOffset));
     expectedDataType = dataType;
     switch(expectedDataType)
     {

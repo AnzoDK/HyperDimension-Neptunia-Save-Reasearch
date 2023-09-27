@@ -239,9 +239,13 @@ void SaveSlot::m_RegisterOffsetMap()
 {
     m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savslotHeader", DataRefStructure(0,m_data,CUSTOM,8)));
     m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savFileMD5Hash", DataRefStructure(0x18,m_data,CUSTOM,16)));
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savTimeStampHour", DataRefStructure(0x334,m_data,UINT16)));
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("savTimeStampMin",DataRefStructure(0x336,m_data,UINT16)));
-    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("SavTimeStampSec", DataRefStructure(0x338,m_data,UINT16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("saveSlotAccessedYear", DataRefStructure(0x334,m_data,UINT16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("saveSlotAccessedMonth",DataRefStructure(0x336,m_data,UINT16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("saveSlotAccessedDay", DataRefStructure(0x338,m_data,UINT16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("saveSlotAccessedHour", DataRefStructure(0x33A,m_data,UINT16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("saveSlotAccessedMinute",DataRefStructure(0x33C,m_data,UINT16)));
+    m_dataRefMap.insert(std::pair<std::string, DataRefStructure>("saveSlotAccessedSecond", DataRefStructure(0x33E,m_data,UINT16)));
+    
     
     
 }

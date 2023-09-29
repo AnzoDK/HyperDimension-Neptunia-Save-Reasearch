@@ -8,3 +8,5 @@ hash.txt
 *.sav
 *.savslot
 *.hex
+GhidraReverseEngineering/*
+ReverseProgress/*

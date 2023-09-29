@@ -62,6 +62,8 @@ It is important to get the shares to add up to 100%, since I haven't checked for
 
 File seems to be a static file size of 884bytes
 
+- Changing anything but the MD5 Hash seems to make the save invalid as the game refuses to read it...
+
 IMPORTANT NOTES
 =========
 The game can tell if a save file is being modified while ingame - to edit the savefile please exit the game first

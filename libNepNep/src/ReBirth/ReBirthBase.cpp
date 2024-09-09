@@ -42,6 +42,11 @@ std::vector<std::string> ReBirthBase::PopulatedSlots()
     
     for (const fs::directory_entry& entry : fs::directory_iterator(m_installPath))
     {
+        if(entry.path().string().length() <= 4)
+        {
+            //Make sure the substr is valid
+            continue;
+        }
         if(entry.path().string().substr(entry.path().string().length()-4) == ".sav")
         {
             slotVec.push_back(entry.path().string().substr(entry.path().string().find_last_of("/")+1));

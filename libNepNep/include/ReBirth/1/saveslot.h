@@ -33,16 +33,10 @@ namespace ReBirth1
         byte nullByteSeperatorAt0x28[4] = {0,0,0,0};
         
         /**
-        * @brief Unknown 27 bytes of data - seemingly always set to {92 ,B4 ,8E ,9F ,8E ,9F ,8C ,B3 ,83 ,51 ,83 ,43 ,83 ,80 ,20 ,83 ,6C ,83 ,76 ,83 ,65 ,83 ,85 ,81 ,5B ,83 ,6B}
+        * @brief The name of the game as a SHIFT-JIS encoded string - this is possibly used to make sure that different games using the same engine doesn't use each others saves - For HDN Re;Birth 1 it's equal to: "超次元ゲイム ネプテューヌRe;Birth1"
         * 
         */
-        byte unknownDataStartingAt0x2C[27] = {0x92 ,0xB4 ,0x8E ,0x9F ,0x8E ,0x9F ,0x8C ,0xB3 ,0x83 ,0x51 ,0x83 ,0x43 ,0x83 ,0x80 ,0x20 ,0x83 ,0x6C ,0x83 ,0x76 ,0x83 ,0x65 ,0x83 ,0x85 ,0x81 ,0x5B ,0x83 ,0x6B};
-        
-        /**
-        * @brief The name of the game - this is possibly used to make sure that different games using the same engine doesn't use each others saves
-        * 
-        */
-        byte gameName[9] = {'R', 'e', ';', 'B', 'i', 'r', 't', 'h', '1'}; //Re;Birth1;
+        byte gameName[36] = { 0x92, 0xb4, 0x8e, 0x9f, 0x8e, 0x9f, 0x8c, 0xb3, 0x83, 0x51, 0x83, 0x43, 0x83, 0x80, 0x20, 0x83, 0x6c, 0x83, 0x76, 0x83, 0x65, 0x83, 0x85, 0x81, 0x5b, 0x83, 0x6b, 0x52, 0x65, 0x3b, 0x42, 0x69, 0x72, 0x74, 0x68, 0x31 };
         
         /**
         * @brief 28 Bytes of nulls - acting as a sepetator between the "header" and saveslot content

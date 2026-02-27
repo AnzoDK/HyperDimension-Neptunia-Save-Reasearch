@@ -55,10 +55,12 @@ It is important to get the shares to add up to 100%, since I haven't checked for
 
 # .savslot
 =========
-[0x0] - [0x07] = Static header = {53 41 56 45 30 30 30 31}
-[0x8]-[0x17] = Some sort of data (maybe another hash?) that changes - Thought it was the hash of the saveslot file, but that was not correct but it is 16 bytes so it fits well with the size of a md5hash - it gets updated on every save, but can be bypassed if the game is closed and the second MD5hash corrected.
+[0x00] - [0x07] = Static header = {53 41 56 45 30 30 30 31}
+[0x08] - [0x17] = Some sort of data (maybe another hash?) that changes - Thought it was the hash of the saveslot file, but that was not correct but it is 16 bytes so it fits well with the size of a md5hash - it gets updated on every save, but can be bypassed if the game is closed and the second MD5hash corrected.
 [0x18] - [0x27] = md5 hash of the associated .sav file (Must be changed if savefile is editied or the game will give not load the save)
-[0x2C] - [0x4F] = Game Name -> A SHIFT-JIS encoded string saying "超次元ゲイム ネプテューヌRe;Birth1" { 0x92, 0xb4, 0x8e, 0x9f, 0x8e, 0x9f, 0x8c, 0xb3, 0x83, 0x51, 0x83, 0x43, 0x83, 0x80, 0x20, 0x83, 0x6c, 0x83, 0x76, 0x83, 0x65, 0x83, 0x85, 0x81, 0x5b, 0x83, 0x6b, 0x52, 0x65, 0x3b, 0x42, 0x69, 0x72, 0x74, 0x68, 0x31 }
+[0x2C] - [0x6B] = Game Name -> A SHIFT-JIS encoded string saying "超次元ゲイム ネプテューヌRe;Birth1" { 0x92, 0xb4, 0x8e, 0x9f, 0x8e, 0x9f, 0x8c, 0xb3, 0x83, 0x51, 0x83, 0x43, 0x83, 0x80, 0x20, 0x83, 0x6c, 0x83, 0x76, 0x83, 0x65, 0x83, 0x85, 0x81, 0x5b, 0x83, 0x6b, 0x52, 0x65, 0x3b, 0x42, 0x69, 0x72, 0x74, 0x68, 0x31 } - Followed by zeroes until the 64 Byte buffer from 0x2C to 0x6B is filled
+
+
 [0x334] = seems to be a timestamp of the savefile. the first 16 bits/2 bytes read the year in full (i.e. 2021) the next 2 bytes is the month in number format (i.e 02 = feburary) and the next 2 bytes are equal to the date (i.e 0x18 = 24) next 2 bytes is the hour, next 2 bytes is the minute, next is the second. the last 4 bytes are unknown and I can't make sense of them
 
 File seems to be a static file size of 884bytes

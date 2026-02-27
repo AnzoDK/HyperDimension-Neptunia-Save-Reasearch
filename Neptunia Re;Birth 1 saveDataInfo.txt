@@ -14,21 +14,21 @@
 Character data starts at offset 0xF38
 
 
-INVENTORY
+## INVENTORY
 =========
 Dont know where it starts or ends as the space it reserves is large and with a lot of nulls so overall size is hard to determine
 Seems that the inventory contains a lot of empty space that gets filled up with entries
 every entry is 4 bytes long and a new entry is only created if the item gained is not already in the list
 1 of the 4 bytes are used to count the amount of that item - don't know which one yet - it seems to be the last of the bytes
 
-CREDITS
+## CREDITS
 =========
 A single 32bit signed integer located at 0xF92C // Range [0xF92C - 0xF92F]
 
 WRONG : The global counter for total collected credits is stored as a single 32bit signed integer located at 0x0EC0 // Range [0x0EC0 - 0x0EC3] 
 
 
-Character: (all hex values are for nep, decimal values are absolutes calculated from the first byte of the characters name)
+## Character: (all hex values are for nep, decimal values are absolutes calculated from the first byte of the characters name)
 =========
 Name = [0]
 level = [39]
@@ -37,13 +37,13 @@ level = [39]
 [0xf70] - [0xf73] = HP
 
 
-Plans:
+## Plans:
 =========
 When a plan is unlocked a value somwhere is set to 01 and when bought, when deactivated set to 3 and when activated its set to 7 (so mask 0b00000001[discovered?] 0b00000010[bought] 0b00000100[activated] ) 
 the mem area for Change Items Plans is around 0xBF345
 the mem area for Add Enemies Plans is around 0xbf2c0
 
-Shares:
+## Shares:
 =========
 Shares are stored next to the Chapter name or offset 0x0F1C
 and is structured like this:
@@ -53,7 +53,7 @@ and is structured like this:
 [0x0F28] - [0x0F2B] = Others shares
 It is important to get the shares to add up to 100%, since I haven't checked for an anti-cheat check yet.
 
-# .savslot
+# .savslot file
 =========
 [0x00] - [0x07] = Static header = {53 41 56 45 30 30 30 31}
 [0x08] - [0x17] = Some sort of data (maybe another hash?) that changes - Thought it was the hash of the saveslot file, but that was not correct but it is 16 bytes so it fits well with the size of a md5hash - it gets updated on every save, but can be bypassed if the game is closed and the second MD5hash corrected.
@@ -72,6 +72,6 @@ __ Reverse Engineering Discoveries __
 The data in the .savslot file From 0x2C to 0x6B - Is located in the exe at location: 0x0076519c to 0x007651c3 - The reason for the 25 extra zeros is strncpy function, located at: 0x004f113b.
 _____________________________________
 
-IMPORTANT NOTES
+# IMPORTANT NOTES
 =========
 The game can tell if a save file is being modified while ingame - to edit the savefile please exit the game first

@@ -14,3 +14,7 @@ LibNepNep is the library I'm building for save editing while I learn about the s
 Yes! - If you want, you can built from the makefile inside the folder - Windows support will come, don't worry ;)
 
 LibNepNep is dependent on a collection of headers called the [RPCommonLib](https://github.com/AnzoDK/RPCommonLib) which can be quickly downloaded.
+
+### Special Thanks
+Special thanks to [@SuperZikoure](https://github.com/SuperZikoure) for his restless nights battling the games PAC files and their image format "TID"
+Another special thanks goes to [xdanieldzd](https://github.com/xdanieldzd) their work on the documenting the TID files and their properties in [Scarlet.IO.ImageFormats](https://github.com/xdanieldzd/Scarlet/blob/8d9e9cd34f6563da4a0f9b8797c3a1dd35542a4c/Scarlet.IO.ImageFormats/TID.cs)
